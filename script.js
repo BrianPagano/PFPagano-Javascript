@@ -159,11 +159,11 @@ function agregarCarrito (e) {
 }
 
 /*Funcion para crear carrito*/
-function renderizarCarrito(carrito) {
+function renderizarCarrito() {
   let carritoFisico = document.getElementById("carrito")
   carritoFisico.innerHTML = ""
   carrito.forEach(producto => {
-    carritoFisico.innerHTML += `<p><span class="bold">Producto:</span> ${producto.nombre} <span class="bold">Unidades:</span> ${producto.unidades} <span class="bold">Subtotal:</span> ${producto.subtotal}</p>`
+    carritoFisico.innerHTML += ` <div class="carritoFinal"> <img class="imagenCarrito" src="../img/${producto.img}"> ${producto.nombre} <span class="bold">Unidades:</span> ${producto.unidades} <span class="bold">Subtotal:</span> ${producto.subtotal}</div> `
   })
   const precioTotal = carrito.reduce((total, producto) => total + producto.subtotal, 0)
   carritoFisico.innerHTML += `<p class="PrecioTot" >Precio Total: ${precioTotal}</p>`
@@ -183,6 +183,7 @@ function renderizarCarrito(carrito) {
     } else if (e.target.id === "cancel") {
       carritoFisico.innerHTML += `<p>Compra cancelada, puede seguir comprando</p>`
     }
+    carrito = []
     localStorage.clear()
   }
 }
