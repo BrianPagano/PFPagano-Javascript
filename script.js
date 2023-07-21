@@ -1,80 +1,14 @@
 //Pre Entrega 3 Pagano
 
-//Declaro el array de objetos con los productos de mi empresa
-let productos = [
-  {
-    id: "DE710",
-    nombre: "Descorchador electronico",
-    categoria: "descorchador",
-    stock: 50,
-    precio: 6000,
-    rutaImagen: "DE710.JPG",
-  },
-  {
-    id: "DE762",
-    nombre: "Descorchador electronico con luz",
-    categoria: "descorchador",
-    stock: 50,
-    precio: 7500,
-    rutaImagen: "DE762.JPG",
-  },
-  {
-    id: "DE192",
-    nombre: "Descorchador 2 tiempos Plata",
-    categoria: "descorchador",
-    stock: 100,
-    precio: 2650,
-    rutaImagen: "DE192.JPG",
-  },
-  {
-    id: "AC100",
-    nombre: "Pico vertedor oxigenador",
-    categoria: "oxigenador",
-    stock: 200,
-    precio: 3000,
-    rutaImagen: "AC100.JPG",
-  },
-  {
-    id: "AC803",
-    nombre: "Pico vertedor decanter",
-    categoria: "oxigenador",
-    stock: 30,
-    precio: 8000,
-    rutaImagen: "AC803.JPG",
-  },
-  {
-    id: "AC820",
-    nombre: "Dispenser Aireador Electrónico",
-    categoria: "oxigenador",
-    stock: 50,
-    precio: 18000,
-    rutaImagen: "AC820.JPG",
-  },
-  {
-    id: "AC189",
-    nombre: "Corta plomo color plata",
-    categoria: "corta plomo",
-    stock: 300,
-    precio: 1500,
-    rutaImagen: "AC189.JPG",
-  },
-  {
-    id: "AC197",
-    nombre: "Corta plomo color madera",
-    categoria: "corta plomo",
-    stock: 300,
-    precio: 1500,
-    rutaImagen: "AC197.JPG",
-  },
-  {
-    id: "AC198",
-    nombre: "Corta plomo color negro",
-    categoria: "corta plomo",
-    stock: 300,
-    precio: 1500,
-    rutaImagen: "AC198.JPG",
-  },
-]
+//consumo mi json local con fetch
+const urlLocal = '../db.json'
+let productos = []
+
+fetch(urlLocal)
+.then(response => response.json())
+.then (data => {productos = data.productos
+       console.log (productos)})
+.catch(Error => contenedor.innerHTML = `<p> Error en la API </p>` )
 
 let carritoJSON = JSON.parse (localStorage.getItem("carrito"))
 let carrito = carritoJSON ? carritoJSON : []
