@@ -2,13 +2,16 @@
 
 //consumo mi json local con fetch
 const urlLocal = '../db.json'
-let productos = []
+const productos = []
 
 fetch(urlLocal)
 .then(response => response.json())
-.then (data => {productos = data.productos
-       console.log (productos)})
+.then (data => {
+       productos = data
+       console.log (productos)
+       crearTarjetas(data)})
 .catch(Error => contenedor.innerHTML = `<p> Error en la API </p>` )
+
 
 let carritoJSON = JSON.parse (localStorage.getItem("carrito"))
 let carrito = carritoJSON ? carritoJSON : []
@@ -17,8 +20,6 @@ let carrito = carritoJSON ? carritoJSON : []
 //capturo el id de mi contenedor (div) de productos de mi html
 let contenedor = document.getElementById("productos")
 
-//llamo a mi funcion de crear tarjetas
-crearTarjetas(productos, contenedor)
 /* renderizarCarrito (carrito) */
 renderizarCarrito (carrito)
 
@@ -44,7 +45,7 @@ function crearTarjetas(array) {
     </div>
     `
     contenedor.appendChild(tarjeta) //por cada elemento (producto) le agrego a contenedor un hijo.
-    let botonCarrito = document.getElementById (producto.id)
+    let botonCarrito = document.getElementById (`${producto.id}`)
     botonCarrito.addEventListener("click", agregarCarrito)
   })
 }

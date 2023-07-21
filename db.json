@@ -1,5 +1,4 @@
-{
-    "productos": [
+ [
     {
       "id": "DE710",
       "nombre": "Descorchador electronico",
@@ -73,4 +72,4 @@
       "rutaImagen": "AC198.JPG"
     }
   ]
-  }
+  
