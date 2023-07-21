@@ -2,13 +2,12 @@
 
 //consumo mi json local con fetch
 const urlLocal = '../db.json'
-const productos = []
+let productos = []
 
 fetch(urlLocal)
 .then(response => response.json())
 .then (data => {
-       productos = data
-       console.log (productos)
+       productos.push(...data)
        crearTarjetas(data)})
 .catch(Error => contenedor.innerHTML = `<p> Error en la API </p>` )
 
