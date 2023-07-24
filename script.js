@@ -9,7 +9,7 @@ fetch(urlLocal)
 .then (data => {
        productos.push(...data)
        crearTarjetas(data)})
-.catch(Error => contenedor.innerHTML = `<p> Error en la API </p>` )
+.catch(Err => contenedor.innerHTML = `<p> Error en la API </p>` )
 
 
 let carritoJSON = JSON.parse (localStorage.getItem("carrito"))
