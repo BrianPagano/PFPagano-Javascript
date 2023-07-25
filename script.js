@@ -110,54 +110,60 @@ const randomCode = generateRandomCode(8) // Genera un código aleatorio de longi
 
 /*Funcion para crear carrito*/
 function renderizarCarrito() {
-  let carritoFisico = document.getElementById("carrito")
-  carritoFisico.innerHTML = ""
-  carrito.forEach(producto => {
-    carritoFisico.innerHTML += ` <div class="carritoFinal"> <img class="imagenCarrito" src="../img/${producto.img}"> ${producto.nombre} <span class="bold">Unidades:</span> ${producto.unidades} <span class="bold">Subtotal:</span> ${producto.subtotal} <span id="trash" class="icon-trash"></span></div>`
-  })
-  const precioTotal = carrito.reduce((total, producto) => total + producto.subtotal, 0)
-  carritoFisico.innerHTML += `<p class="PrecioTot" >Precio Total: ${precioTotal}</p>`
-  carritoFisico.innerHTML += `<div class="center"><button id="finalizada" class="compra">Finalizar Compra</button> <button id="cancel" class="compra">cancelar</button></div>`
+  let carritoFisico = document.getElementById("carrito");
+  carritoFisico.innerHTML = "";
+  carrito.forEach((producto) => {
+    carritoFisico.innerHTML += `<div class="carritoFinal"> <img class="imagenCarrito" src="../img/${producto.img}"> ${producto.nombre} <span class="bold">Unidades:</span> ${producto.unidades} <span class="bold">Subtotal:</span> ${producto.subtotal} <span data-id="${producto.id}" id="borrar-${producto.id}" class="icon-trash"></span></div>`;
+    //capturo class del boton borrar del carrito
+    const btnBorrar = document.getElementById(`borrar-${producto.id}`);
+    btnBorrar.addEventListener("click", borrarCarrito);
+  });
 
-  //capturo class del boton borrar del carrito
-  let btnBorrar = document.getElementById("trash")
-  btnBorrar.addEventListener("click",borrarCarrito)
+  //funcion para borrar productos del carrito
+  function borrarCarrito(e) {
+    console.log(e)
+    let idProducto = e.target.dataset.id; // Obtenemos el id del producto desde el evento
+    let productoAEliminar = carrito.findIndex(
+      (producto) => producto.id === idProducto
+    );
 
+    if (productoAEliminar !== -1) {
+      carrito.splice(productoAEliminar, 1);
+      localStorage.setItem("carrito", JSON.stringify(carrito)); // Para que se actualice el localStorage sin los elementos eliminados
+    }
+    renderizarCarrito();
+  }
 
- //funcion para borrar productos del carrito
-  function borrarCarrito() {
-  let idProducto = e.target.id; // Obtenemos el id del producto desde el evento
-  console.log (idProducto)
-  let productoAEliminar = carrito.findIndex((producto) => producto.id === idProducto);
-
-  if (productoAEliminar !== -1) {
-      carrito.splice(productoAEliminar, 1)
-      localStorage.setItem('carrito', JSON.stringify(carrito)) // Para que se actualice el localStorage sin los elementos eliminados
-  } 
-  renderizarCarrito()
-  } 
+  const precioTotal = carrito.reduce(
+    (total, producto) => total + producto.subtotal,
+    0
+  );
+  carritoFisico.innerHTML += `<p class="PrecioTot" >Precio Total: ${precioTotal}</p>`;
+  carritoFisico.innerHTML += `<div class="center"><button id="finalizada" class="compra">Finalizar Compra</button> <button id="cancel" class="compra">cancelar</button></div>`;
 
   //utilizo un evento para cuando doy click a los botones de finalizar o cancelar compra
-  let botones = document.querySelectorAll("#finalizada, #cancel")
-  botones.forEach(boton => {
-    boton.addEventListener("click", finalizarCompra)
-  })
+  let botones = document.querySelectorAll("#finalizada, #cancel");
+  botones.forEach((boton) => {
+    boton.addEventListener("click", finalizarCompra);
+  });
 
   function finalizarCompra(e) {
-    let carritoFisico = document.getElementById("carrito")
-    carritoFisico.innerHTML = ""
+    let carritoFisico = document.getElementById("carrito");
+    carritoFisico.innerHTML = "";
 
     if (e.target.id === "finalizada") {
-      carritoFisico.innerHTML = `<p class=mensajeFinal>¡Muchas gracias por su compra!</p> <p>Su codigo de compra es: ${randomCode} </p>`
-      sweetAlert ("success","Compra confirmada",)
+      carritoFisico.innerHTML = `<p class=mensajeFinal>¡Muchas gracias por su compra!</p> <p>Su codigo de compra es: ${randomCode} </p>`;
+      sweetAlert("success", "Compra confirmada");
     } else if (e.target.id === "cancel") {
-      carritoFisico.innerHTML += `<p class=mensajeFinal> Ya puede seguir comprando </p>`
-      sweetAlert ("error","¡Compra Cancelada!")
+      carritoFisico.innerHTML += `<p class=mensajeFinal> Ya puede seguir comprando </p>`;
+      sweetAlert("error", "¡Compra Cancelada!");
     }
-    carrito = []
-    localStorage.clear()
+    carrito = [];
+    localStorage.clear();
   }
-}
+} 
+
+   
 
 //capturo el ID y creo el evento para mostrar y ocultar
 let boton = document.getElementById("boton")
