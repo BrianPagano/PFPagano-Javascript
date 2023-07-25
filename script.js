@@ -1,4 +1,4 @@
-//Pre Entrega 3 Pagano
+//Proyecto final Pagano
 
 //consumo mi json local con fetch
 const urlLocal = '../db.json'
@@ -92,6 +92,22 @@ function agregarCarrito (e) {
       renderizarCarrito(carrito)
 }
 
+//funcion para crear un codigo aleatorio
+function generateRandomCode(length) {
+  const characters = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789'
+  let code = ''
+  
+  for (let i = 0; i < length; i++) {
+    const randomIndex = Math.floor(Math.random() * characters.length)
+    code += characters.charAt(randomIndex)
+  }
+  
+  return code;
+}
+
+const randomCode = generateRandomCode(8) // Genera un código aleatorio de longitud 10
+
+
 /*Funcion para crear carrito*/
 function renderizarCarrito() {
   let carritoFisico = document.getElementById("carrito")
@@ -113,9 +129,11 @@ function renderizarCarrito() {
     carritoFisico.innerHTML = ""
 
     if (e.target.id === "finalizada") {
-      carritoFisico.innerHTML += `<p>Compra confirmada, ¡gracias por su Compra!</p>`
+      carritoFisico.innerHTML = `<p class=mensajeFinal>¡Muchas gracias por su compra!</p> <p>Su codigo de compra es: ${randomCode} </p>`
+      sweetAlert ("success","Compra confirmada",)
     } else if (e.target.id === "cancel") {
-      carritoFisico.innerHTML += `<p>Compra cancelada, puede seguir comprando</p>`
+      carritoFisico.innerHTML += `<p class=mensajeFinal> Ya puede seguir comprando </p>`
+      sweetAlert ("error","¡Compra Cancelada!")
     }
     carrito = []
     localStorage.clear()
@@ -133,3 +151,12 @@ function mostrarOcultar () {
   padreContenedor.classList.toggle("oculto")
   carrito.classList.toggle("oculto")
 }
+
+//funcion para llamar a sweet alert dependiendo si cancela o finaliza compra
+function sweetAlert (icon,title,text,) {
+Swal.fire({
+  icon,
+  title,
+  text,
+})}
+
