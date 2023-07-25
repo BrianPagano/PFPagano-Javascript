@@ -113,12 +113,31 @@ function renderizarCarrito() {
   let carritoFisico = document.getElementById("carrito")
   carritoFisico.innerHTML = ""
   carrito.forEach(producto => {
-    carritoFisico.innerHTML += ` <div class="carritoFinal"> <img class="imagenCarrito" src="../img/${producto.img}"> ${producto.nombre} <span class="bold">Unidades:</span> ${producto.unidades} <span class="bold">Subtotal:</span> ${producto.subtotal}</div> `
+    carritoFisico.innerHTML += ` <div class="carritoFinal"> <img class="imagenCarrito" src="../img/${producto.img}"> ${producto.nombre} <span class="bold">Unidades:</span> ${producto.unidades} <span class="bold">Subtotal:</span> ${producto.subtotal} <span id="trash" class="icon-trash"></span></div>`
   })
   const precioTotal = carrito.reduce((total, producto) => total + producto.subtotal, 0)
   carritoFisico.innerHTML += `<p class="PrecioTot" >Precio Total: ${precioTotal}</p>`
   carritoFisico.innerHTML += `<div class="center"><button id="finalizada" class="compra">Finalizar Compra</button> <button id="cancel" class="compra">cancelar</button></div>`
-  
+
+  //capturo class del boton borrar del carrito
+  let btnBorrar = document.getElementById("trash")
+  btnBorrar.addEventListener("click",borrarCarrito)
+
+
+ //funcion para borrar productos del carrito
+  function borrarCarrito() {
+  let idProducto = e.target.id; // Obtenemos el id del producto desde el evento
+  console.log (idProducto)
+  let productoAEliminar = carrito.findIndex((producto) => producto.id === idProducto);
+
+  if (productoAEliminar !== -1) {
+      carrito.splice(productoAEliminar, 1)
+      localStorage.setItem('carrito', JSON.stringify(carrito)) // Para que se actualice el localStorage sin los elementos eliminados
+  } 
+  renderizarCarrito()
+  } 
+
+  //utilizo un evento para cuando doy click a los botones de finalizar o cancelar compra
   let botones = document.querySelectorAll("#finalizada, #cancel")
   botones.forEach(boton => {
     boton.addEventListener("click", finalizarCompra)
@@ -159,4 +178,7 @@ Swal.fire({
   title,
   text,
 })}
+
+
+
 

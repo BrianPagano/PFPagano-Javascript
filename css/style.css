@@ -173,7 +173,7 @@ header {
     background: linear-gradient(#641E1E, #250303);
     padding: 30px;
 }
-header nav div div div .color-menu, .color-carrito, .icon-menu-outline{
+header nav div div div .color-menu, .color-carrito, .icon-menu{
     color: whitesmoke;
 }
 
@@ -371,7 +371,7 @@ main #carrito {
 
 .carritoFinal {
   display: grid;
-  grid-template-columns: 0.2fr 0.6fr 0.1fr 0.1fr 0.2fr 0.1fr;
+  grid-template-columns: 0.2fr 0.6fr 0.1fr 0.1fr 0.2fr 0.1fr 0.1fr;
   gap:10px;
   margin-top: 20px;
   align-items: center;
