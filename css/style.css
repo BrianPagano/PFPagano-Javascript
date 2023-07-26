@@ -173,11 +173,11 @@ header {
     background: linear-gradient(#641E1E, #250303);
     padding: 30px;
 }
-header nav div div div .color-menu, .color-carrito, .icon-menu{
+header nav div div div .color-menu, .color-carrito, .icon-menu, #contadorCarrito{
     color: whitesmoke;
 }
 
-.color-carrito::before {
+.color-carrito::before, #contadorCarrito::before {
   color: whitesmoke;
 }
 
@@ -391,6 +391,12 @@ main #carrito {
 
 .center {
   text-align: center;
+}
+
+/* Estilo tacho de basura */
+
+.icon-trash:hover {
+  cursor:pointer;
 }
 
 /*estilo para el boton del carrito*/

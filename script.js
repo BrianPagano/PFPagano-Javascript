@@ -11,10 +11,9 @@ fetch(urlLocal)
        crearTarjetas(data)})
 .catch(Err => contenedor.innerHTML = `<p> Error en la API </p>` )
 
-
+//obtengo el carrito del localstorage si ya habia algo guardado, si no array vacio.
 let carritoJSON = JSON.parse (localStorage.getItem("carrito"))
 let carrito = carritoJSON ? carritoJSON : []
-
 
 //capturo el id de mi contenedor (div) de productos de mi html
 let contenedor = document.getElementById("productos")
@@ -53,7 +52,7 @@ function crearTarjetas(array) {
 let buscador = document.getElementById("buscador")
 buscador.addEventListener("input",filtrar)
 
-//funcion para filtrar
+//funcion para filtrar un array
 function filtrar() {
   let arrayFiltrado = productos.filter(producto => producto.nombre.toLowerCase().includes(buscador.value.toLowerCase()) || producto.categoria.toLowerCase().includes(buscador.value.toLowerCase()) || producto.id.toLowerCase().includes(buscador.value.toLowerCase()))
   crearTarjetas(arrayFiltrado, contenedor)}
@@ -77,6 +76,7 @@ function agregarCarrito (e) {
         carrito[posicionProductoEnCarrito].unidades++
         carrito[posicionProductoEnCarrito].subtotal = carrito[posicionProductoEnCarrito].precioUnitario * carrito[posicionProductoEnCarrito].unidades
       }
+      //agrego tostaditas
       Toastify({
         text: "Producto agregado al Carrito",
         duration: 1800,
@@ -87,12 +87,12 @@ function agregarCarrito (e) {
           background: "linear-gradient(90deg, rgba(131,58,180,1) 0%, rgba(253,29,29,1) 80%, rgba(252,127,69,1) 99%)",
         },
       }).showToast()
-      
+      //seteo la info en el storage 
       localStorage.setItem("carrito", JSON.stringify(carrito))
       renderizarCarrito(carrito)
 }
 
-//funcion para crear un codigo aleatorio
+//funcion para crear un codigo aleatorio para cuando finalice la compra
 function generateRandomCode(length) {
   const characters = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789'
   let code = ''
@@ -101,10 +101,8 @@ function generateRandomCode(length) {
     const randomIndex = Math.floor(Math.random() * characters.length)
     code += characters.charAt(randomIndex)
   }
-  
   return code
 }
-
 const randomCode = generateRandomCode(8) // Genera un código aleatorio de longitud 10
 
 //funcion para borrar productos del carrito
@@ -114,7 +112,6 @@ function borrarCarrito(e) {
   let productoAEliminar = carrito.findIndex(
     (producto) => producto.id === idProducto
   )
-
   if (productoAEliminar !== -1) {
     carrito.splice(productoAEliminar, 1)
     localStorage.setItem("carrito", JSON.stringify(carrito)) // Para que se actualice el localStorage sin los elementos eliminados
@@ -122,6 +119,7 @@ function borrarCarrito(e) {
   renderizarCarrito()
 }
 
+//funcion para finalizar indicar un mensaje al finalizar o cancelar compra
 function finalizarCompra(e) {
   let carritoFisico = document.getElementById("carrito")
   carritoFisico.innerHTML = ""
@@ -137,7 +135,7 @@ function finalizarCompra(e) {
   localStorage.clear()
 }
 
-/*Funcion para crear carrito*/
+//Funcion para crear carrito
 function renderizarCarrito() {
   let carritoFisico = document.getElementById("carrito")
   carritoFisico.innerHTML = ""
@@ -153,8 +151,8 @@ function renderizarCarrito() {
     carritoFisico.appendChild( carritoProducto )
   })
 
+  //utilizo reduce para calcular el precio total
   const precioTotal = carrito.reduce( (total, producto) => total + producto.subtotal, 0)
-
   let carritoTotal = document.createElement("div")
   carritoTotal.innerHTML = `
     <p class="PrecioTot" >Precio Total: ${precioTotal}</p>
@@ -162,18 +160,17 @@ function renderizarCarrito() {
   `
   carritoFisico.appendChild( carritoTotal )
 
-  // Asigno eventos a los elementos creados.
+  // Asigno eventos al elemento creado para borrar carrito
   carrito.forEach((producto) => {
     document.getElementById(`borrar-${producto.id}`).addEventListener("click", borrarCarrito)
   })
 
-  //utilizo un evento para cuando doy click a los botones de finalizar o cancelar compra
+  //asigno evento para cuando doy click a los botones de finalizar o cancelar compra
   let botones = document.querySelectorAll("#finalizada, #cancel")
   botones.forEach((boton) => {
     boton.addEventListener("click", finalizarCompra)
   })
 } 
-
 
 
 //capturo el ID y creo el evento para mostrar y ocultar
@@ -197,5 +194,32 @@ Swal.fire({
 })}
 
 
+// Crear una función para calcular el total de productos
+const calcularTotalProductos = () => {
+  return carrito.reduce((total, producto) => total + producto.unidades, 0)
+}
 
+// Función para actualizar el contador
+const contidadContador = () => {
+  let contadorCarrito = document.getElementById("contadorCarrito")
+  contadorCarrito.innerText = `${totalProductos}`
+}
 
+// Observar cambios en el carrito y actualizar el contador cuando ocurran
+const observer = new MutationObserver(() => {
+  const nuevoTotalProductos = calcularTotalProductos()
+  if (totalProductos !== nuevoTotalProductos) {
+    totalProductos = nuevoTotalProductos
+    contidadContador()
+  }
+})
+
+// Obtener el elemento que representa el carrito 
+const carritoElemento = document.getElementById("carrito")
+
+// Configurar el observador para que esté atento a cambios en el carrito
+observer.observe(carritoElemento, { childList: true, subtree: true })
+
+// Inicializar el contador
+let totalProductos = calcularTotalProductos()
+contidadContador()
