@@ -172,10 +172,17 @@ function renderizarCarrito() {
   })
 } 
 
-
 //capturo el ID y creo el evento para mostrar y ocultar
 let boton = document.getElementById("boton")
 boton.addEventListener("click", mostrarOcultar) 
+
+//funcion para mostrar y ocultar carrito
+function mostrarOcultar () {
+  let padreContenedor = document.getElementById("contenedorPadre")
+  let carrito = document.getElementById("carrito")
+  padreContenedor.classList.toggle("oculto")
+  carrito.classList.toggle("oculto")
+}
 
 //funcion para mostrar y ocultar carrito
 function mostrarOcultar () {

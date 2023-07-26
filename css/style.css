@@ -362,7 +362,7 @@ main h2 {
     margin-top: 40px;
      }
 main .parrafo {
-        text-align: center;
+        text-align: justify;
         font-size: 15px; 
         margin-left: 40px;
         margin-right: 40px;
@@ -403,11 +403,11 @@ main #carrito {
   background-color: #fff;
   border: 1px solid #ccc;
   border-radius: 4px;
-  padding: 20px;
+  padding: 10px;
   width: 380px;
   margin-top: 30px;
   margin-bottom: 40px;
-  font-size: 10px;
+  font-size: 12px;
 }
 .imagenCarrito {
   width: 60px;
@@ -463,6 +463,7 @@ main #carrito {
 /*adapto pantalla para tablet*/
 @media screen and (min-width: 600px) {
   main #carrito {
+    padding: 20px;
     width: 550px;
     font-size: 14px;
     margin-bottom: 30px;
