@@ -145,7 +145,7 @@ function renderizarCarrito() {
     carritoProducto.innerHTML = `
       <img class="imagenCarrito" src="../img/${producto.img}"> ${producto.nombre} 
       <span class="bold">Unidades:</span> ${producto.unidades} 
-      <span class="bold">Subtotal:</span> ${producto.subtotal} 
+      <span class="bold">Subtotal:</span> $${producto.subtotal} 
       <div class="icon-trash" data-id="${producto.id}" id="borrar-${producto.id}"></div>
     `
     carritoFisico.appendChild( carritoProducto )
@@ -155,7 +155,7 @@ function renderizarCarrito() {
   const precioTotal = carrito.reduce( (total, producto) => total + producto.subtotal, 0)
   let carritoTotal = document.createElement("div")
   carritoTotal.innerHTML = `
-    <p class="PrecioTot" >Precio Total: ${precioTotal}</p>
+    <p class="PrecioTot" >Precio Total: $${precioTotal}</p>
     <div class="center"><button id="finalizada" class="compra">Finalizar Compra</button> <button id="cancel" class="compra">cancelar</button></div>
   `
   carritoFisico.appendChild( carritoTotal )
