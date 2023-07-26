@@ -192,8 +192,9 @@ button {
 
 /*Tamaño logo*/
 header nav div img {
-  height: 70px; 
-  border-radius: 20px;
+  height: 8vw; 
+  max-height: 60px;
+  border-radius: 10px;
 }
 
 
@@ -202,12 +203,21 @@ header nav div img {
     color: whitesmoke;
 } 
 
+#navbarNavAltMarkup {
+  margin-top: 20px;
+}
+
 
 @media screen and (min-width: 1024px) {
   header nav div div div .color-menu:hover, .color-carrito:hover {
     color: white;
     transform: scale(1.2);
     transition: transform .3s; } 
+
+    header nav div img {
+      height: 70px; 
+      border-radius: 20px;
+    }
 }
 
 /*Estilos para footer*/
@@ -326,25 +336,25 @@ main div .contenedor {
  main div .portada-transparente {
     background-color: rgba(29, 6, 27, 0.6);
     margin-top: 50px;
-    margin-left: 150px;
+    margin-left: 20px;
     height: 500px;
-    width: 600px;
+    width: 350px;
     padding: 50px;
    }
 main div.contenedor-texto {
    color: white;
    }
  main div div h1 {
-    font-size: 50px;
+    font-size: 40px;
     font-weight: bold;
    }
  main div div p {
-    font-size: 40px;
+    font-size: 28px;
    }
 main h2 {
     color: #7F4475;
     text-align: center;
-    font-size: 40px;
+    font-size: 30px;
     font-weight: bold;
     margin-top: 40px;
      }
@@ -353,7 +363,36 @@ main .parrafo {
         font-size: 20px; 
         margin-left: 40px;
         margin-right: 40px;
+        margin-bottom: 30px;
     }
+
+@media screen and (min-width: 600px) {
+  main div .portada-transparente {
+    margin-left: 50px;
+    width: 500px;
+    padding: 50px;
+   }
+   main div div h1 {
+    font-size: 50px;
+   }
+ main div div p {
+    font-size: 40px;
+   }
+main h2 {
+    font-size: 40px;
+     }
+main .parrafo {
+        font-size: 20px; 
+    }
+}
+
+@media screen and (min-width: 1024px) {
+  main div .portada-transparente {
+    margin-left: 150px;
+    width: 600px;
+    padding: 50px;
+   }
+}
 
 
 /*Estilo para la pagina donde se ven los productos en el carrito*/
@@ -362,54 +401,47 @@ main #carrito {
   border: 1px solid #ccc;
   border-radius: 4px;
   padding: 20px;
-  width: 800px;
+  width: 400px;
   margin-top: 30px;
-  font-size: 18px;
+  margin-bottom: 40px;
+  font-size: 10px;
 }
-
 .imagenCarrito {
-  width: 70px;
-  height: 70px;
+  width: 60px;
+  height: 60px;
   border-radius: 10%;
 }
-
 .carritoFinal {
   display: grid;
-  grid-template-columns: 0.2fr 0.6fr 0.1fr 0.1fr 0.2fr 0.1fr 0.1fr;
+  grid-template-columns: 0.2fr 1fr 0.1fr 0.1fr 0.2fr 0.1fr 0.1fr;
   gap:10px;
   margin-top: 20px;
   align-items: center;
 }
-
 .bold {
   font-weight: bold;
   text-align: center;
 }
-
 .PrecioTot {
   font-weight: bold;
   text-align: center;
   margin-top: 30px;
-  font-size: 18px;
+  font-size: 12px;
 }
-
 .center {
   text-align: center;
 }
-
 /* Estilo tacho de basura */
-
 .icon-trash:hover {
   cursor:pointer;
 }
-
 /*estilo para el boton del carrito*/
 .compra {
   border: none;
   outline: none;
   background-color: #6c5ce7;
-  padding: 10px 20px;
-  font-size: 12px;
+  padding: 5px 10px;
+  font-size: 10px;
   font-weight: 700;
   color: #fff;
   border-radius: 5px;
@@ -417,12 +449,54 @@ main #carrito {
   box-shadow: 0px 5px 0px 0px #a29bfe;
   margin-right: 30px;
 }
-
 .compra:active {
   transform: translateY(5px);
   box-shadow: 0px 0px 0px 0px #a29bfe;
 }
-
 .oculto {
   display: none;
+}
+
+/*adapto pantalla para tablet*/
+@media screen and (min-width: 600px) {
+  main #carrito {
+    width: 550px;
+    font-size: 14px;
+    margin-bottom: 30px;
+  }
+  .imagenCarrito {
+    width: 70px;
+    height: 70px;
+  }
+  .PrecioTot {
+    font-size: 16px;
+  }
+  /*estilo para el boton del carrito*/
+  .compra {
+    padding: 10px 20px;
+    font-size: 12px;
+    font-weight: 700;
+    border-radius: 5px;
+    margin-right: 30px;
+  }
+  .carritoFinal {
+    grid-template-columns: 0.2fr 1fr 0.1fr 0.1fr 0.2fr 0.1fr 0.1fr;
+  }
+}
+/*adapto pantalla para pc*/
+@media screen and (min-width: 1024px) {
+  main #carrito {
+    width: 900px;
+    font-size: 18px;
+  }
+  .imagenCarrito {
+    width: 80px;
+    height: 80px;
+  }
+  .PrecioTot {
+    font-size: 18px;
+  }
+  .carritoFinal {
+    grid-template-columns: 0.2fr 0.4fr 0.1fr 0.1fr 0.2fr 0.1fr 0.1fr;
+  }
 }
