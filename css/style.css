@@ -177,7 +177,7 @@ header nav div div div .color-menu, .color-carrito, .icon-menu, #contadorCarrito
     color: whitesmoke;
 }
 
-.color-carrito::before, #contadorCarrito::before {
+.color-carrito::before, #contadorCarrito::before, .color-menu::before {
   color: whitesmoke;
 }
 
