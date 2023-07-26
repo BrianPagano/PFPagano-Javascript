@@ -181,6 +181,10 @@ header nav div div div .color-menu, .color-carrito, .icon-menu, #contadorCarrito
   color: whitesmoke;
 }
 
+#contadorCarrito {
+  font-size: 15px;
+}
+
 button {
   color: whitesmoke;
 }
